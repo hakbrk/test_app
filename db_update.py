@@ -79,4 +79,4 @@ def update_db():
             cursor.execute(query)
     print ('The database was updated')
 
-update_db()
+# update_db()
