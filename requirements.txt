@@ -1,5 +1,4 @@
 pandas
-smop
 dash==1.11.0
 dash_html_components==1.0.3
 mysql_connector_repackaged==0.3.1
