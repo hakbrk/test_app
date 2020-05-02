@@ -6,6 +6,7 @@
 # from plotly.graph_objs import *
 
 # import flask
+import pandas as pd
 import dash
 # from dash.dependencies import Input, Output
 # import dash_core_components as dcc
@@ -27,14 +28,22 @@ mydb = mysql.connector.connect(
   passwd="fcdc6acd",
   database="heroku_826bb11c8d537f8"
 )
-text = print(mydb)
+# text = print(mydb)
 # Put your Dash code here
+
+mycursor = mydb.cursor()
+query = """SELECT * FROM equity_history"""
+test = pd.read_sql_query(query, mydb)
+equity_list = test["ticker"].unique().tolist()
+print(equity_list)
+
+
 
 app.layout = html.Div(children=[
    
 
 
-    html.Label(text, id='test_text')
+    html.Label(equity_list, id='test_text')
 ])
 
 
