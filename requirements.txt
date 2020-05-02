@@ -1,5 +1,10 @@
-pandas
+yfinance==0.1.54
+pandas==0.25.1
 dash==1.11.0
+dash_core_components==1.9.1
+selenium==3.141.0
+tqdm==4.36.1
+plotly==4.5.3
 dash_html_components==1.0.3
-mysql.connector
-gunicorn
+mysql_connector_repackaged==0.3.1
+python_dateutil==2.8.1
