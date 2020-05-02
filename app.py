@@ -8,7 +8,7 @@ from datetime import datetime
 import mysql.connector
 import plotly
 import time
-# from db_update import update_db
+from db_update import update_db
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 

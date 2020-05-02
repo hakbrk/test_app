@@ -11,12 +11,13 @@ import mysql.connector
 
 def update_db():
     engine = mysql.connector.connect(
-  host="us-cdbr-east-06.cleardb.net",
-  user="b299c42f0fdf61",
-  passwd="fcdc6acd",
-  database="heroku_826bb11c8d537f8"
-)
-    df = pd.DataFrame()
+    host="us-cdbr-east-06.cleardb.net",
+    user="b299c42f0fdf61",
+    passwd="fcdc6acd",
+    database="heroku_826bb11c8d537f8"
+    )
+    cursor = engine.cursor()
+    # df = pd.DataFrame()
     # query = """SELECT DISTINCT ticker FROM equity_history"""
     # answer = pd.read_sql_query(query, engine)
     # tick_list = answer['ticker'].tolist()
@@ -75,7 +76,7 @@ def update_db():
             query = insert_init + vals + insert_end
 
             # Fire insert statement
-            engine.execute(query)
+            cursor.execute(query)
     print ('The database was updated')
 
-# update_db()
+update_db()
