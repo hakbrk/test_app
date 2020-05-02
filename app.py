@@ -27,13 +27,14 @@ mydb = mysql.connector.connect(
   passwd="fcdc6acd",
   database="heroku_826bb11c8d537f8"
 )
+text = print(mydb)
 # Put your Dash code here
 
 app.layout = html.Div(children=[
    
 
 
-    html.Label(print(mydb), id='test_text')
+    html.Label(text, id='test_text')
 ])
 
 
