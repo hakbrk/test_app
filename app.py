@@ -33,7 +33,7 @@ app.layout = html.Div(children=[
    
 
 
-    html.Label('This is a test', id='test_text')
+    html.Label(mydb, id='test_text')
 ])
 
 
