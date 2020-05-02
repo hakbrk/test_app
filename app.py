@@ -21,12 +21,12 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 # server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
-mydb = mysql.connector.connect(
-  host="us-cdbr-east-06.cleardb.net",
-  user="b299c42f0fdf61",
-  passwd="fcdc6acd",
-  database="heroku_826bb11c8d537f8"
-)
+# mydb = mysql.connector.connect(
+#   host="us-cdbr-east-06.cleardb.net",
+#   user="b299c42f0fdf61",
+#   passwd="fcdc6acd",
+#   database="heroku_826bb11c8d537f8"
+# )
 # Put your Dash code here
 
 app.layout = html.Div(children=[
