@@ -276,8 +276,6 @@ app.layout = html.Div(children=[
     ),
     html.Label('', id='time-range-label'),
 
-    html.Button('Update Data', id='my-button')
-
 
 ])
 
@@ -363,16 +361,6 @@ def _update_time_range_label(year_range):
     return 'From {} to {}'.format(unixToDatetime(year_range[0]).strftime('%d-%b-%Y'),
                                   unixToDatetime(year_range[1]).strftime('%d-%b-%Y'))
 
-@app.callback(
-    Output('my-button', 'value'),
-    [Input('my-button', 'n_clicks'),
-    Input(component_id='check_boxes', component_property='value')]
-)
-def clicked(n_click, input_data):
-    if n_click != None:
-        print('update triggerd')
-        update_db()
-        run(input_data)
 
 
 if __name__ == '__main__':
