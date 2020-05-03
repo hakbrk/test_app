@@ -14,14 +14,15 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
-engine = mysql.connector.connect(
-  host="us-cdbr-east-06.cleardb.net",
-  user="b299c42f0fdf61",
-  passwd="fcdc6acd",
-  database="heroku_826bb11c8d537f8"
-)
-
-# mycursor = mydb.cursor()
+def db_connect():
+    engine = mysql.connector.connect(
+    host="us-cdbr-east-06.cleardb.net",
+    user="b299c42f0fdf61",
+    passwd="fcdc6acd",
+    database="heroku_826bb11c8d537f8"
+    )
+    return engine
+engine = db_connect()
 query = """SELECT * FROM equity_history"""
 test = pd.read_sql_query(query, engine)
 equity_list = test["ticker"].unique().tolist()
@@ -51,6 +52,7 @@ for symb in equity_list:
 def run(equity_symb):
     df = pd.DataFrame()
     for symb in equity_symb:
+        engine = db_connect()
         query = """select trade_date, close
         from equity_history where ticker='{}' and
         trade_date >= '2019-01-01 12:00:00'
