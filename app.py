@@ -11,6 +11,8 @@ import plotly.graph_objects as go
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
+server = app.server
+
 app.title = 'Equity Performance'
 
 def db_connect():
