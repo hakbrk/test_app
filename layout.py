@@ -1,19 +1,18 @@
-import pandas as pd
 import dash
+import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
-import plotly.graph_objects as go
-from datetime import datetime
 import mysql.connector
-import plotly
+import pandas as pd
 import time
-# from db_update import update_db
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+import plotly.graph_objects as go
 
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-server = app.server
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+
+app.title = 'Equity Performance'
+
 def db_connect():
     engine = mysql.connector.connect(
     host="us-cdbr-east-06.cleardb.net",
@@ -223,11 +222,6 @@ def change_line (data, new_line):
     for data in data:
         data['line']['shape'] = new_line
 
-
-
-
-# app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-
 def unixTimeMillis(dt):
     ''' Convert datetime to unix timestamp '''
     return int(time.mktime(dt.timetuple()))
@@ -251,39 +245,87 @@ def getMarks(start, end, Nth=31):
 
 daterange = pd.date_range(start=min_date,end=max_date,freq='D')
 
+app.layout = html.Div([
 
+    dbc.Container([
 
-app.layout = html.Div(children=[
-   
+        dbc.Row(
+            dbc.Col(
+                html.Div(
+                    html.Img(src="//s24.q4cdn.com/232570774/files/design/PD-Logo.svg", alt="Pacific Drilling"),
+                            id='logo'),
+                             width=3,md=3, lg=2),
+                             id='head'),
 
-    dcc.Graph(id='output',
-              config = {'editable': True}),
-    dcc.Checklist(
-    id='check_boxes',
-    options=Options,
-    value=equity_list,
-    labelStyle={'display': 'inline',
-                'margin-right' : 20,
-                }
-    ),
-    
-    dcc.RangeSlider(
-        id='my-range-slider',
-        min = unixTimeMillis(daterange.min()),
-        max = unixTimeMillis(daterange.max()),
-        value = [unixTimeMillis(daterange.min()),
+        dbc.Row(
+            dbc.Col(
+                html.Div(
+                    html.H2('Equity Performance')
+                ),
+                id='title_head')
+        ),
+
+        dbc.Row(
+            dbc.Col(
+                dcc.Graph(id='output',
+                config = {'editable' : True, 'toImageButtonOptions': {'format' : 'svg',
+                                                                      'height' : 900,
+                                                                      'width' : 1500}})
+            )
+        ),
+
+        dbc.Row(
+            dbc.Col(children=[
+            dcc.RangeSlider(
+                id='my-range-slider',
+                min = unixTimeMillis(daterange.min()),
+                max = unixTimeMillis(daterange.max()),
+                value = [unixTimeMillis(daterange.min()),
                 unixTimeMillis(daterange.max())],
-        marks=getMarks(daterange.min(),
-                    daterange.max())
-    ),
-    html.Label('', id='time-range-label'),
+                marks=getMarks(daterange.min(),
+                                daterange.max())
+            ),
+        # html.Label('', id='time-range-label'),
+        ], id='slider_area')
+        ),
+
+        dbc.Row(
+            dbc.Col(
+                html.Label(
+                    html.H6('', id='time-range-label')
+            
+            ),id='range_label'
+            )
+        ),
+
+        dbc.Row(
+            dbc.Col(
+                dbc.FormGroup(
+                            [
+                    dbc.Label("Toggle Equity Plots"),
+                    dbc.Checklist(
+                        options=Options,
+                        value=equity_list,
+                        id="switches-input",
+                        switch=True,
+                        inline=True,
+                                ),
+                            ],
+                            id='toggle_area'
+                )
+            )
+        ),
+
+    ], fluid=True),
+     
+
 
 
 ])
 
 @app.callback(
     Output('output', 'figure'),
-    [Input(component_id='check_boxes', component_property='value'),
+    [Input(component_id='switches-input', component_property='value'),
     Input('my-range-slider', 'value')]
 )
 
@@ -339,9 +381,9 @@ def update_value(input_data, date_data):
         },
         'plot_bgcolor': 'rgb(255, 255, 255)',
         'showlegend' : False,
-        'autosize' : False,
-        'width' : 1800,
-        'height' : 1000,
+        # 'autosize' : False,
+        # 'width' : 1800,
+        # 'height' : 1000,
         'annotations' : annotations,
         'hovermode' : 'x'
         }
@@ -360,11 +402,12 @@ def update_value(input_data, date_data):
     dash.dependencies.Output('time-range-label', 'children'),
     [dash.dependencies.Input('my-range-slider', 'value')])
 def _update_time_range_label(year_range):
-    return 'From {} to {}'.format(unixToDatetime(year_range[0]).strftime('%d-%b-%Y'),
+    return 'Showing Equity Return From {} to {}'.format(unixToDatetime(year_range[0]).strftime('%d-%b-%Y'),
                                   unixToDatetime(year_range[1]).strftime('%d-%b-%Y'))
 
 
 
 if __name__ == '__main__':
     app.run_server(debug=True)
-# update_db()
+
+    html.Img(src="//s24.q4cdn.com/232570774/files/design/PD-Logo.svg", alt="Pacific Drilling")

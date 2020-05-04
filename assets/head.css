@@ -1,0 +1,58 @@
+#head {
+    padding-top: 1rem;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.05);
+}
+
+#logo {
+    padding-bottom: 1rem;
+    padding-top: 0.5rem;
+}
+
+#title_head {
+    padding-top: 1.5rem;
+    text-align: center;
+    padding-bottom: 1rem;
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    word-wrap: break-word;
+    color: #242424;
+}
+
+#toggle_area {
+    padding-left: 4rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #242424;
+}
+#slider_area {
+    padding-left: 4.5rem;
+    padding-right: 4rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #242424;
+}
+
+#my-range-slidera {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #242424;
+    padding-top: 2 rem;
+}
+
+#output {
+    height: 60rem;
+}
+
+#time-range-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #242424;
+}
+
+#range_label {
+    text-align: center;
+    padding-top: 1rem;
+}
