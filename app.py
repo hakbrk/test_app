@@ -300,7 +300,7 @@ app.layout = html.Div([
             )
         ),
 
-        dbc.Row(
+        dbc.Row([
             dbc.Col(
                 dbc.FormGroup(
                             [
@@ -315,8 +315,21 @@ app.layout = html.Div([
                             ],
                             id='toggle_area'
                 )
+            ),
+            dbc.Col(
+                                [
+                    dbc.Row(dbc.Label("Preset Date Queries")),
+                    
+            
+                    dbc.Row([dbc.Button("1 Year", color="primary", active=True, className="mr-1"),
+                             dbc.Button("YTD", color="primary", active=True, className="mr-1"),
+                             dbc.Button("1 Month", color="primary", active=True, className="mr-1"),
+                             dbc.Button("6 Month", color="primary", active=True, className="mr-1"),
+                             dbc.Button("All", color="primary", active=True, className="mr-1")],
+                    )],
+                id='button_area'
             )
-        ),
+        ]),
 
     ], fluid=True),
      
