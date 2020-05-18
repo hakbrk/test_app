@@ -11,12 +11,12 @@ from selenium import webdriver
 import os
 
 engine = create_engine('mysql+mysqlconnector://b299c42f0fdf61:fcdc6acd@us-cdbr-east-06.cleardb.net/heroku_826bb11c8d537f8')
-chrome_options = webdriver.ChromeOptions()
-chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--no-sandbox")
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+# chrome_options = webdriver.ChromeOptions()
+# chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+# chrome_options.add_argument("--headless")
+# chrome_options.add_argument("--disable-dev-shm-usage")
+# chrome_options.add_argument("--no-sandbox")
+# driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
 query = """SELECT DISTINCT ticker FROM equity_history"""
 answer = pd.read_sql_query(query, engine)
@@ -29,6 +29,11 @@ def import_yahoo(symbol):
         i = 0
         for i in range(0,2):
             try:
+                chrome_options = webdriver.ChromeOptions()
+                chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+                chrome_options.add_argument("--headless")
+                chrome_options.add_argument("--disable-dev-shm-usage")
+                chrome_options.add_argument("--no-sandbox")
                 driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
                 # driver = webdriver.Chrome(options=chrome_options)
                 url = "https://markets.businessinsider.com/commodities/historical-prices/oil-price/usd?type=brent"
