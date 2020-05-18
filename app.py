@@ -1,4 +1,5 @@
 import dash
+from dash import no_update
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
@@ -7,7 +8,8 @@ import mysql.connector
 import pandas as pd
 import time
 import plotly.graph_objects as go
-
+import dateutil.relativedelta
+from datetime import datetime
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
@@ -27,7 +29,7 @@ engine = db_connect()
 query = """SELECT * FROM equity_history"""
 test = pd.read_sql_query(query, engine)
 equity_list = test["ticker"].unique().tolist()
-print(equity_list)
+# print(equity_list)
 
 df = pd.DataFrame()
 query = """SELECT DISTINCT ticker FROM equity_history
@@ -67,7 +69,8 @@ def run(equity_symb):
     return df
 min_date = df.index.min()
 max_date = df.index.max()
-print(min_date, max_date)
+date_span = [min_date, max_date]
+print(date_span)
 
 def graph_data(column, data_Change):
     num = data_Change[column].iloc[-1]
@@ -246,6 +249,10 @@ def getMarks(start, end, Nth=31):
     return result
 
 daterange = pd.date_range(start=min_date,end=max_date,freq='D')
+# print(daterange[-1] - dateutil.relativedelta(months=12))
+# d = max_date
+# d2 = max_date - dateutil.relativedelta.relativedelta(months=12)
+# print(f'This is what you get {unixTimeMillis(daterange.min())}')
 
 app.layout = html.Div([
 
@@ -282,6 +289,7 @@ app.layout = html.Div([
                 id='my-range-slider',
                 min = unixTimeMillis(daterange.min()),
                 max = unixTimeMillis(daterange.max()),
+                # value = [],
                 value = [unixTimeMillis(daterange.min()),
                 unixTimeMillis(daterange.max())],
                 marks=getMarks(daterange.min(),
@@ -321,14 +329,24 @@ app.layout = html.Div([
                     dbc.Row(dbc.Label("Preset Date Queries")),
                     
             
-                    dbc.Row([dbc.Button("1 Year", color="primary", active=True, className="mr-1"),
-                             dbc.Button("YTD", color="primary", active=True, className="mr-1"),
+                    dbc.Row([dbc.Button("1 Year",id="oneyear", color="primary", active=True, className="mr-1"),
+                             dbc.Button("YTD", id='YTD', color="primary", active=True, className="mr-1"),
                              dbc.Button("1 Month", color="primary", active=True, className="mr-1"),
                              dbc.Button("6 Month", color="primary", active=True, className="mr-1"),
                              dbc.Button("All", color="primary", active=True, className="mr-1")],
                     )],
                 id='button_area'
-            )
+            ),
+
+            dbc.Col(
+                                
+                    dbc.Row([dbc.Label("place holder1", id='test_response1'),
+                              dbc.Label("place holder2", id='test_response2')]),
+                    
+        
+            ),
+
+            
         ]),
 
     ], fluid=True),
@@ -337,6 +355,7 @@ app.layout = html.Div([
 
 
 ])
+
 
 @app.callback(
     Output('output', 'figure'),
@@ -350,7 +369,7 @@ def update_value(input_data, date_data):
     start_date = unixToDatetime(date_data[0])
     # print(start_date)
     end_date = unixToDatetime(date_data[-1])
-    print(end_date)
+    # print(end_date)
     df = df[start_date : end_date]
     # print(df)
     data_Change = df.apply(lambda x: ((x-x.iloc[0])/x.iloc[0])*100).round(1)
@@ -420,7 +439,17 @@ def _update_time_range_label(year_range):
     return 'Showing Equity Return From {} to {}'.format(unixToDatetime(year_range[0]).strftime('%d-%b-%Y'),
                                   unixToDatetime(year_range[1]).strftime('%d-%b-%Y'))
 
+@app.callback(
+    [dash.dependencies.Output('test_response1', 'children'),
+    dash.dependencies.Output('test_response2', 'children')],
+    [dash.dependencies.Input('oneyear', 'n_clicks'),
+    dash.dependencies.Input('YTD', 'n_clicks')])
 
+def one_year_click(n1, n2):
+    return [no_update if n1 is None else n1,
+            no_update if n2 is None else n2]
+
+# print(f'This is the first of value {unixTimeMillis(daterange.min())}')
 
 if __name__ == '__main__':
     app.run_server(debug=True)
