@@ -1,0 +1,9 @@
+dash_core_components==1.9.1
+pandas
+dash_bootstrap_components==0.9.2
+dash_html_components==1.0.3
+dash==1.11.0
+plotly==4.5.3
+mysql.connector
+gunicorn
+yfinance==0.1.54
