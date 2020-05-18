@@ -6,3 +6,4 @@ dash==1.11.0
 plotly==4.5.3
 mysql.connector
 gunicorn
+yfinance==0.1.54
