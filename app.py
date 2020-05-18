@@ -254,7 +254,7 @@ app.layout = html.Div([
         dbc.Row(
             dbc.Col(
                 html.Div(
-                    html.Img(src="//s24.q4cdn.com/232570774/files/design/PD-Logo.svg", alt="Pacific Drilling"),
+                    html.Img(src="assets/headerimage.png", alt="John Hawkins Consulting"),
                             id='logo'),
                              width=3,md=3, lg=2),
                              id='head'),
@@ -412,4 +412,4 @@ def _update_time_range_label(year_range):
 if __name__ == '__main__':
     app.run_server(debug=True)
 
-    html.Img(src="//s24.q4cdn.com/232570774/files/design/PD-Logo.svg", alt="Pacific Drilling")
+    # html.Img(src="//s24.q4cdn.com/232570774/files/design/PD-Logo.svg", alt="Pacific Drilling")
