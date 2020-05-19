@@ -96,6 +96,7 @@ from selenium import webdriver
 from pandas.io.html import read_html
 import time
 from selenium.webdriver.chrome.options import Options
+import os
 
 engine = create_engine('mysql+mysqlconnector://b299c42f0fdf61:fcdc6acd@us-cdbr-east-06.cleardb.net/heroku_826bb11c8d537f8')
 chrome_options = Options()
