@@ -129,7 +129,7 @@ def import_yahoo(symbol):
             try:
                 # driver = webdriver.Chrome(options=chrome_options)
                 # driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
-                driver = webdriver.Chrome(execution_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
+                driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
                 url = "https://markets.businessinsider.com/commodities/historical-prices/oil-price/usd?type=brent"
                 driver.get(url)
                 time.sleep(3)  
