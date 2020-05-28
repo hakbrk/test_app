@@ -101,8 +101,8 @@ import os
 import mysql.connector
 from webdriver_manager.chrome import ChromeDriverManager
 
-GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
-CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
+GOOGLE_CHROME_PATH = '/testappjhawk/.apt/usr/bin/google_chrome'
+CHROMEDRIVER_PATH = '/testappjhawk/.chromedriver/bin/chromedriver'
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--disable-gpu')
