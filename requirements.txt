@@ -12,4 +12,5 @@ pandas
 selenium
 mysql.connector
 python_dateutil==2.8.1
+lxml
 gunicorn
