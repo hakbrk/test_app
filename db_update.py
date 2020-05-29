@@ -129,9 +129,9 @@ print(symb_list)
 def import_yahoo(symbol):
     equity_data = pd.DataFrame()
     if symbol == 'Brent':
-        i = 0
-        for i in range(0,2):
-            try:
+        # i = 0
+        # for i in range(0,2):
+            # try:
                 # driver = webdriver.Chrome(options=chrome_options)
                 # driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
                 # driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
@@ -147,10 +147,10 @@ def import_yahoo(symbol):
                 equity_data = equity_data.rename(columns={"Closing Price": "close"})
                 equity_data = equity_data['close'].reset_index().set_index('trade_date')
                 driver.quit()
-            except:
-                driver.quit()
-                i += 1
-                print(f"Still trying {2-i} more times.")
+            # except:
+            #     driver.quit()
+            #     i += 1
+            #     print(f"Still trying {2-i} more times.")
 
     else:
         equity_data = yf.download(symbol, start=(datetime.today()-dateutil.relativedelta.relativedelta(months=28)).strftime('%Y-%m-%d'), end=datetime.today().strftime('%Y-%m-%d')).rename_axis('trade_date')
