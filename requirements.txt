@@ -1,5 +1,5 @@
 plotly==4.5.3
-webdriver_manager==2.5.2
+# webdriver_manager==2.5.2
 dash_core_components==1.9.1
 tqdm==4.36.1
 yfinance==0.1.54
