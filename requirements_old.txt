@@ -1,6 +1,6 @@
 yfinance==0.1.54
 pandas
-dash==1.11.0
+dash==2.15.0
 dash_core_components==1.9.1
 selenium==3.141.0
 tqdm==4.36.1
